@@ -1,17 +1,49 @@
-RUN THE PROJECT
+# B2BrokerToken Deployment Guide
 
+This guide provides a step-by-step walkthrough for deploying the `B2BrokerToken` — a LayerZero-enabled, Ownable ERC-20 token — to the Ethereum Sepolia testnet.
+
+## ⚙️ Prerequisites
+
+- Node.js >= 18.x
+- NPM >= 8.x
+- Hardhat
+- LayerZero SDK
+- Ethereum wallet with Sepolia ETH (e.g., MetaMask)
+- Etherscan API Key (for contract verification)
+
+---
+
+## 📦 Installation
+
+```bash
 npm install
+```
 
-fill the .env file using the .env.example
+```
+cp .env.example .env
 
+Fill in your .env file with the required environment variables. These include private keys, RPC URLs, and other sensitive config values.
+```
+
+🚀 Deployment
+Use the following command to deploy the token contract to Ethereum Sepolia:
+
+```
 npx hardhat lz:deploy --networks "ethereum-sepolia" --tags "B2BrokerToken"
+```
 
-npx @layerzerolabs/verify-contract --contracts B2BrokerToken --network ethereum-sepolia --api-key "743MEFP69QWWEJWKWGVUFVDXS1Q31ZI2CK" -u https://api-sepolia.etherscan.io/api
+Contract Verification (Etherscan)
+After deployment, verify your contract on Etherscan:
 
+```
+npx @layerzerolabs/verify-contract --contracts B2BrokerToken --network ethereum-sepolia --api-key "your-api-key" -u https://api-sepolia.etherscan.io/api
+```
 
+🔐 Replace <YOUR_ETHERSCAN_API_KEY> with your actual API key from Etherscan.
 
-fill the .env file of the backend
+Notes
+The lz:deploy command uses Hardhat's task system to deploy contracts with LayerZero configuration.
 
-./start.sh
+Make sure your Sepolia wallet address has enough ETH for gas fees.
 
-http://localhost:3000/contract-call/0x01297e5b14004883CC77c0c5d3f42CA1000013C1/balance/0x2D0bf6D3BD0636eec331f7c2861F44D74a2dcaC3
+For production deployments, use the ethereum network and adjust your .env accordingly.
